@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:18:21 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 14:54:10 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:12:39 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static volatile sig_atomic_t	g_sig_received = 0;
 
-static void	sig_handler(int sig)
+static void	sig_handler(int unused)
 {
-	(void)sig;
+	(void)unused;
 	g_sig_received = 1;
 }
 
@@ -27,10 +27,7 @@ static int	ft_atoi(const char *str)
 
 	result = 0;
 	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
+		result = result * 10 + (*(str)++ - '0');
 	return (result);
 }
 
