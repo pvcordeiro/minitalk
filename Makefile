@@ -1,20 +1,20 @@
 SERVER = server
 CLIENT = client
+SRVSRC = server.c ft_printf.c
+CLISRC = client.c ft_printf.c
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c server.c libft.c
-OBJS = $(SRCS:.c=.o)
 
 all: $(SERVER) $(CLIENT)
 
-$(SERVER): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(SERVER)
+$(SERVER):
+	$(CC) $(CFLAGS) $(SRVSRC) -o $(SERVER)
 
-$(CLIENT): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(CLIENT)
+$(CLIENT):
+	$(CC) $(CFLAGS) $(CLISRC) -o $(CLIENT)
 
 clean:
-	rm -f $(OBJS)
+	rm -f server.o client.o ft_printf.o
 
 fclean: clean
 	rm -f $(SERVER) $(CLIENT)

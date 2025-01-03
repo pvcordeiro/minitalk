@@ -6,11 +6,24 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:18:21 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 12:37:22 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:21:54 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static int	ft_atoi(const char *str)
+{
+	int	result;
+
+	result = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result);
+}
 
 int	send_char(int pid, char c)
 {
