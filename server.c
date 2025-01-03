@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:05:22 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 15:14:25 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:18:23 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static void	bit_handler(int bit, siginfo_t *info, void *unused)
 	i++;
 	if (i == 8)
 	{
-		write(1, &c, 1);
+		if (c == '\0')
+			kill(info->si_pid, SIGUSR2);
+		else
+			write(1, &c, 1);
 		c = 0;
 		i = 0;
 	}
