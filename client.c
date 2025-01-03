@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:18:21 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 15:20:47 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:26:53 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	sig_handler(int signum)
 	if (signum == SIGUSR1)
 		g_sig_received = 1;
 	else if (signum == SIGUSR2)
-		write(1, "Message received by server!\n", 28);
+		write(1, "Message received by server! ✅\n", 33);
 }
 
 static int	ft_atoi(const char *str)
