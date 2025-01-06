@@ -6,19 +6,19 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:05:22 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 15:18:23 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:03:23 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <signal.h>
 
-static void	ft_putnbr(long nb)
+static void	putnbr(long nb)
 {
 	char	digit;
 
 	if (nb >= 10)
-		ft_putnbr(nb / 10);
+		putnbr(nb / 10);
 	digit = nb % 10 + '0';
 	write(1, &digit, 1);
 }
@@ -33,8 +33,7 @@ static void	bit_handler(int bit, siginfo_t *info, void *unused)
 		c |= (1 << i);
 	else if (bit == SIGUSR2)
 		c &= ~(1 << i);
-	i++;
-	if (i == 8)
+	if (++i == 8)
 	{
 		if (c == '\0')
 			kill(info->si_pid, SIGUSR2);
@@ -51,7 +50,7 @@ int	main(void)
 	struct sigaction	sa;
 
 	write (1, "Server PID: ", 12);
-	ft_putnbr(getpid());
+	putnbr(getpid());
 	write (1, "\n", 1);
 	sa.sa_sigaction = bit_handler;
 	sa.sa_flags = SA_SIGINFO;

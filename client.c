@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:18:21 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/03 15:26:53 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:00:15 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 static volatile sig_atomic_t	g_sig_received = 0;
 
-static void	sig_handler(int signum)
+static void	sig_handler(int sig)
 {
-	if (signum == SIGUSR1)
+	if (sig == SIGUSR1)
 		g_sig_received = 1;
-	else if (signum == SIGUSR2)
+	else if (sig == SIGUSR2)
 		write(1, "Message received by server! ✅\n", 33);
 }
 
@@ -55,17 +55,14 @@ int	send_char(int pid, char c)
 int	main(int argc, char **argv)
 {
 	int		pid;
-	char	*message;
 
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
 	if (argc != 3)
 		return (write (1, "Usage: ./client [PID] [MESSAGE]\n", 32));
+	signal(SIGUSR1, sig_handler);
+	signal(SIGUSR2, sig_handler);
 	pid = ft_atoi(argv[1]);
-	message = argv[2];
-	while (*message)
-		send_char(pid, *message++);
+	while (*argv[2])
+		send_char(pid, *argv[2]++);
 	send_char(pid, '\0');
-	usleep(42);
 	return (0);
 }
