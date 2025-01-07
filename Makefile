@@ -2,24 +2,20 @@ SERVER = server
 CLIENT = client
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCSRV = server.c
-SRCCLI = client.c
-OBJSRV = $(SRCSRV:.c=.o)
-OBJCLI = $(SRCCLI:.c=.o)
 
 all: $(SERVER) $(CLIENT)
 
-$(SERVER): $(OBJSRV)
-	$(CC) $(CFLAGS) $(OBJSRV) -o $(SERVER)
+$(SERVER): server.o
+	$(CC) $(CFLAGS) server.o -o $(SERVER)
 
-$(CLIENT): $(OBJCLI)
-	$(CC) $(CFLAGS) $(OBJCLI) -o $(CLIENT)
+$(CLIENT): client.o
+	$(CC) $(CFLAGS) client.o -o $(CLIENT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJSRV) $(OBJCLI)
+	rm -f server.o client.o
 
 fclean: clean
 	rm -f $(SERVER) $(CLIENT)

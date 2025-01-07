@@ -6,12 +6,13 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:18:21 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/06 00:00:15 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:07:59 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 
 static volatile sig_atomic_t	g_sig_received = 0;
 
@@ -27,6 +28,13 @@ static int	ft_atoi(const char *str)
 {
 	int	result;
 
+	result = 0;
+	while (str[result])
+	{
+		if (!(str[result] >= '0' && str[result] <= '9'))
+			exit(write(1, "PID can be only numbers\n", 24));
+		result++;
+	}
 	result = 0;
 	while (*str >= '0' && *str <= '9')
 		result = result * 10 + (*(str)++ - '0');
@@ -58,9 +66,9 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 		return (write (1, "Usage: ./client [PID] [MESSAGE]\n", 32));
+	pid = ft_atoi(argv[1]);
 	signal(SIGUSR1, sig_handler);
 	signal(SIGUSR2, sig_handler);
-	pid = ft_atoi(argv[1]);
 	while (*argv[2])
 		send_char(pid, *argv[2]++);
 	send_char(pid, '\0');

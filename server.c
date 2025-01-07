@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:05:22 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/06 00:03:23 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:35:10 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	putnbr(long nb)
 	write(1, &digit, 1);
 }
 
-static void	bit_handler(int bit, siginfo_t *info, void *unused)
+static void	bit_handler(int sig, siginfo_t *info, void *unused)
 {
 	static char	c = 0;
 	static int	i = 0;
 
 	(void)unused;
-	if (bit == SIGUSR1)
+	if (sig == SIGUSR1)
 		c |= (1 << i);
-	else if (bit == SIGUSR2)
+	else if (sig == SIGUSR2)
 		c &= ~(1 << i);
 	if (++i == 8)
 	{
@@ -53,7 +53,7 @@ int	main(void)
 	putnbr(getpid());
 	write (1, "\n", 1);
 	sa.sa_sigaction = bit_handler;
-	sa.sa_flags = SA_SIGINFO;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-PATH_TO_CLIENT="../minitalk/client"
+PATH_TO_CLIENT="./client"
 
 # Colors
 Black='\e[0;30m'
