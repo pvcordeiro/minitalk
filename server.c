@@ -6,7 +6,7 @@
 /*   By: paude-so <paude-so@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:05:22 by paude-so          #+#    #+#             */
-/*   Updated: 2025/01/07 12:35:10 by paude-so         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:12:50 by paude-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ static void	bit_handler(int sig, siginfo_t *info, void *unused)
 
 	(void)unused;
 	if (sig == SIGUSR1)
-		c |= (1 << i);
-	else if (sig == SIGUSR2)
-		c &= ~(1 << i);
+		c += (1 << i);
 	if (++i == 8)
 	{
 		if (c == '\0')
